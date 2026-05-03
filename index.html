@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey You 💙</title>
+
+<!-- Cute Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Pacifico', cursive;
+  background: linear-gradient(135deg, #ff9de2, #8fd3ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Floating bubbles */
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+.container {
+  text-align: center;
+}
+
+.question {
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  position: relative;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.yes {
+  background: red;
+  color: white;
+}
+
+.no {
+  background: red;
+  color: white;
+  position: absolute;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.message {
+  font-size: 1.5rem;
+  color: black;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="question">Will you hangout with me 🙁</div>
+
+  <div class="buttons">
+    <button class="yes" onclick="sayYes()">Yes 💖</button>
+    <button class="no" id="noBtn">No 😢</button>
+  </div>
+
+  <div class="message" id="message"></div>
+</div>
+
+<script>
+// Create bubbles
+for (let i = 0; i < 25; i++) {
+  let bubble = document.createElement("div");
+  bubble.classList.add("bubble");
+  bubble.style.left = Math.random() * 100 + "vw";
+  bubble.style.animationDuration = (4 + Math.random() * 4) + "s";
+  bubble.style.width = bubble.style.height = (10 + Math.random() * 20) + "px";
+  document.body.appendChild(bubble);
+}
+
+// Yes button action
+function sayYes() {
+  document.getElementById("message").innerText = "Yayyy!! 💙 Can't wait!! 😊";
+}
+
+// No button runs away
+const noBtn = document.getElementById("noBtn");
+
+document.addEventListener("mousemove", function(e) {
+  const rect = noBtn.getBoundingClientRect();
+  const distance = Math.hypot(
+    e.clientX - (rect.left + rect.width/2),
+    e.clientY - (rect.top + rect.height/2)
+  );
+
+  if (distance < 100) {
+    const x = Math.random() * (window.innerWidth - rect.width);
+    const y = Math.random() * (window.innerHeight - rect.height);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+});
+</script>
+
+</body>
+</html>
